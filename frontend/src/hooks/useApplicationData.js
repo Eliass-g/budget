@@ -11,6 +11,7 @@ const useApplicationData = () => {
   const [finances, setFinances] = useState([]);
 
   const getUsers = async () => {
+    console.log('n');
     try {
       const result = await axios({
         url: "/users/",
