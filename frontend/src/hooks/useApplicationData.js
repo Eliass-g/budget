@@ -9,9 +9,9 @@ const useApplicationData = () => {
   const [expenses, setExpenses] = useState([]);
   const [expensesOfCategory, setExpensesOfCategory] = useState([]);
   const [finances, setFinances] = useState([]);
+  const [change, setChange] = useState([false]);
 
   const getUsers = async () => {
-    console.log('n');
     try {
       const result = await axios({
         url: "/users/",
@@ -36,15 +36,10 @@ const useApplicationData = () => {
           password,
         },
       });
-      useEffect(() => {
-        getBudgets();
-        getCategories();
-        getExpenses();
-        getFinances();
-      }, []);
     } catch (err) {
       console.log(err);
     }
+    setChange(!change);
   };
 
   const loginUser = async (email, password) => {
@@ -57,15 +52,10 @@ const useApplicationData = () => {
           password,
         },
       });
-      useEffect(() => {
-        getBudgets();
-        getCategories();
-        getExpenses();
-        getFinances();
-      }, []);
     } catch (err) {
       console.log(err);
     }
+    setChange(!change);
   };
 
   const logoutUser = async () => {
@@ -182,15 +172,10 @@ const useApplicationData = () => {
           duration,
         },
       });
-      useEffect(() => {
-        getBudgets();
-        getCategories();
-        getExpenses();
-        getFinances();
-      }, []);
     } catch (err) {
       console.log(err);
     }
+    setChange(!change);
   };
 
   const addCategory = async (category) => {
@@ -200,15 +185,10 @@ const useApplicationData = () => {
         method: "POST",
         data: category,
       });
-      useEffect(() => {
-        getBudgets();
-        getCategories();
-        getExpenses();
-        getFinances();
-      }, []);
     } catch (err) {
       console.log(err);
     }
+    setChange(!change);
   };
 
   const addFinance = async (source, amount, duration, fixed) => {
@@ -223,15 +203,10 @@ const useApplicationData = () => {
           fixed,
         },
       });
-      useEffect(() => {
-        getBudgets();
-        getCategories();
-        getExpenses();
-        getFinances();
-      }, []);
     } catch (err) {
       console.log(err);
     }
+    setChange(!change);
   };
 
   const addExpense = async (category_id, amount) => {
@@ -244,15 +219,10 @@ const useApplicationData = () => {
           amount,
         },
       });
-      useEffect(() => {
-        getBudgets();
-        getCategories();
-        getExpenses();
-        getFinances();
-      }, []);
     } catch (err) {
       console.log(err);
     }
+    setChange(!change);
   };
 
   const updateBudget = async (
@@ -274,15 +244,10 @@ const useApplicationData = () => {
           id,
         },
       });
-      useEffect(() => {
-        getBudgets();
-        getCategories();
-        getExpenses();
-        getFinances();
-      }, []);
     } catch (err) {
       console.log(err);
     }
+    setChange(!change);
   };
 
   const updateCategory = async (category, id) => {
@@ -295,15 +260,10 @@ const useApplicationData = () => {
           id,
         },
       });
-      useEffect(() => {
-        getBudgets();
-        getCategories();
-        getExpenses();
-        getFinances();
-      }, []);
     } catch (err) {
       console.log(err);
     }
+    setChange(!change);
   };
 
   const updateFinance = async (source, amount, duration, fixed, id) => {
@@ -319,15 +279,10 @@ const useApplicationData = () => {
           id,
         },
       });
-      useEffect(() => {
-        getBudgets();
-        getCategories();
-        getExpenses();
-        getFinances();
-      }, []);
     } catch (err) {
       console.log(err);
     }
+    setChange(!change);
   };
 
   const updateExpense = async (category_id, amount, id) => {
@@ -341,15 +296,10 @@ const useApplicationData = () => {
           id,
         },
       });
-      useEffect(() => {
-        getBudgets();
-        getCategories();
-        getExpenses();
-        getFinances();
-      }, []);
     } catch (err) {
       console.log(err);
     }
+    setChange(!change);
   };
 
   const deleteBudget = async (id) => {
@@ -359,15 +309,10 @@ const useApplicationData = () => {
         method: "DELETE",
         data: id,
       });
-      useEffect(() => {
-        getBudgets();
-        getCategories();
-        getExpenses();
-        getFinances();
-      }, []);
     } catch (err) {
       console.log(err);
     }
+    setChange(!change);
   };
 
   const deleteCategory = async (id) => {
@@ -377,15 +322,10 @@ const useApplicationData = () => {
         method: "DELETE",
         data: id,
       });
-      useEffect(() => {
-        getBudgets();
-        getCategories();
-        getExpenses();
-        getFinances();
-      }, []);
     } catch (err) {
       console.log(err);
     }
+    setChange(!change);
   };
 
   const deleteFinance = async (id) => {
@@ -395,15 +335,10 @@ const useApplicationData = () => {
         method: "DELETE",
         data: id,
       });
-      useEffect(() => {
-        getBudgets();
-        getCategories();
-        getExpenses();
-        getFinances();
-      }, []);
     } catch (err) {
       console.log(err);
     }
+    setChange(!change);
   };
 
   const deleteExpense = async (id) => {
@@ -413,15 +348,10 @@ const useApplicationData = () => {
         method: "DELETE",
         data: id,
       });
-      useEffect(() => {
-        getBudgets();
-        getCategories();
-        getExpenses();
-        getFinances();
-      }, []);
     } catch (err) {
       console.log(err);
     }
+    setChange(!change);
   };
 
   useEffect(() => {
@@ -431,6 +361,14 @@ const useApplicationData = () => {
     getExpenses();
     getFinances();
   }, []);
+
+  useEffect(() => {
+    getUsers();
+    getBudgets();
+    getCategories();
+    getExpenses();
+    getFinances();
+  }, [change]);
 
   return {
     users,
