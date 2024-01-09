@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
+axios.defaults.baseURL = 'http://localhost:3001';
 
 const useApplicationData = () => {
   const [users, setUsers] = useState([]);
@@ -11,13 +12,14 @@ const useApplicationData = () => {
   const [finances, setFinances] = useState([]);
   const [change, setChange] = useState([false]);
 
+  
+
   const getUsers = async () => {
     try {
       const result = await axios({
         url: "/users/",
         method: "GET",
       });
-
       setUsers(result.data.data);
     } catch (err) {
       console.log(err);
