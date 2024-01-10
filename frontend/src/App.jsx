@@ -1,5 +1,7 @@
 import React from "react";
 import useApplicationData from "./hooks/useApplicationData.js";
+import LoginPage from "./components/LoginPage.jsx";
+import RegisterPage from "./components/RegisterPage.jsx";
 
 function App() {
   
@@ -29,7 +31,7 @@ function App() {
     deleteExpense, } = useApplicationData();
 
   return <div className="App">
-    
+    <RegisterPage registerUser={registerUser}/>
   </div>;
 }
 
