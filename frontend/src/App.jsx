@@ -31,7 +31,8 @@ function App() {
     deleteExpense, } = useApplicationData();
 
   return <div className="App">
-    <RegisterPage registerUser={registerUser}/>
+    {/* <RegisterPage registerUser={registerUser}/> */}
+    <LoginPage loginUser={loginUser} />
   </div>;
 }
 
