@@ -1,11 +1,12 @@
 import React from "react";
 import useApplicationData from "./hooks/useApplicationData.js";
-import LoginPage from "./components/LoginPage.jsx";
-import RegisterPage from "./components/RegisterPage.jsx";
+import LoginPage from "./features/users/LoginPage.jsx";
+import RegisterPage from "./features/users/RegisterPage.jsx";
+import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 
 function App() {
-  
-  const { users,
+  const {
+    users,
     registerUser,
     loginUser,
     logoutUser,
@@ -28,12 +29,18 @@ function App() {
     deleteBudget,
     deleteCategory,
     deleteFinance,
-    deleteExpense, } = useApplicationData();
+    deleteExpense,
+  } = useApplicationData();
 
-  return <div className="App">
-    {/* <RegisterPage registerUser={registerUser}/> */}
-    <LoginPage loginUser={loginUser} />
-  </div>;
+  return (
+    <div className="App">
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<LoginPage />} />
+        </Routes>
+      </BrowserRouter>
+    </div>
+  );
 }
 
 export default App;
