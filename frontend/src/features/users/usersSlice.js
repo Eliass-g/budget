@@ -3,7 +3,7 @@ import axios from "axios";
 axios.defaults.baseURL = "http://localhost:3001";
 
 const initialState = {
-  currentUser: {},
+  currentUser: null,
   status: {
     login: "idle",
     register: "idle",
@@ -11,7 +11,7 @@ const initialState = {
 };
 
 export const usersSlice = createSlice({
-  name: "user",
+  name: "users",
   initialState,
   reducers: {},
   extraReducers(builder) {
@@ -80,7 +80,7 @@ export const registerUser = createAsyncThunk(
         password,
       },
     });
-    return response.data;
+    return response.data.data;
   }
 );
 
@@ -89,7 +89,7 @@ export const logoutUser = createAsyncThunk("users/logoutUser", async () => {
     url: "/users/logout",
     method: "POST",
   });
-  return response.data;
+  return response.data.data;
 });
 
 export const getCurrentUser = (state) => state.users.currentUser;
