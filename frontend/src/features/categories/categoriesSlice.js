@@ -45,7 +45,7 @@ export const categoriesSlice = createSlice({
         state.status.updateCategory = "succeeded";
         var index = state.categories.findIndex((category) => category.id === action.payload.id);
         if (index !== -1) {
-          state.caegories[index] = action.payload;
+          state.categories[index] = action.payload;
         };
       })
       .addCase(updateCategory.rejected, (state, action) => {
