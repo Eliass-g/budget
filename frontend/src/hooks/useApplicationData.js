@@ -12,8 +12,6 @@ const useApplicationData = () => {
   const [finances, setFinances] = useState([]);
   const [change, setChange] = useState([false]);
 
-  
-
   const getUsers = async () => {
     try {
       const result = await axios({
