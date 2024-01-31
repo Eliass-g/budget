@@ -20,7 +20,7 @@ function LoginPage() {
     dispatch(
       loginUser({ email: inputs.email, password: inputs.password })
     ).then(() => {
-      console.log(currentUser.data);
+      console.log(currentUser);
     });
   };
 
