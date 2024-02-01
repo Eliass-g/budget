@@ -8,7 +8,7 @@ const getBudget = async (user_id) => {
   values: [user_id],
   };
   const data = await db.query(queryDef);
-  return data.rows[0];
+  return data.rows;
 };
 
 //get budgets of specific category
