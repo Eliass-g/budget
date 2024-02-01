@@ -150,6 +150,7 @@ export const deleteBudget = createAsyncThunk(
 );
 
 export const selectBudgets = (state) => state.budgets.budgets;
+export const selectBudgetStatus = (state) => state.budgets.status.budgets;
 // Action creators are generated for each case reducer function
 export const {} = budgetsSlice.actions;
 
