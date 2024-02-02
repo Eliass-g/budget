@@ -9,6 +9,14 @@ const express = require("express");
 const router = express.Router();
 const bcrypt = require("bcrypt");
 const { getUsers, getUserWithEmail, addUser } = require("../db/queries/users");
+const app = express();
+const cookieSession = require("cookie-session");
+app.use(
+  cookieSession({
+    name: "session",
+    keys: ["key1"],
+  })
+);
 
 router.get("/", async (req, res) => {
   try {
@@ -24,7 +32,7 @@ router.post("/register", async (req, res) => {
   user.password = bcrypt.hashSync(user.password, 12);
   try {
     const data = await addUser(user);
-    req.session.userId = data.id;
+    req.session.user_id = data.id;
     
     res.json({ data });
     
@@ -44,7 +52,8 @@ router.post("/login", async (req, res) => {
     if (!bcrypt.compareSync(password, data.password)) {
       return res.send({ error: "error" });
     }
-    req.session.userId = data.id;
+    req.session.user_id = data.id;
+    console.log(req.session.user_id);
     res.json({ data });
   } catch (err) {
     res.status(500).json({ error: err.message });
@@ -53,7 +62,7 @@ router.post("/login", async (req, res) => {
 
 router.post("/logout", async (req, res) => {
   try {
-    req.session.userId = null;
+    req.session.user_id = null;
     res.send({});
   } catch (err) {
     res.status(500).json({ error: err.message });

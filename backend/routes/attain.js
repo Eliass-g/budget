@@ -11,7 +11,7 @@ const {
 
 router.get("/budget", async (req, res) => {
   try {
-    const data = await getBudget(req.session.userId);
+    const data = await getBudget(req.session.user_id);
     res.json({ data });
   } catch (err) {
     res.status(500).send({ error: err.message });
@@ -20,7 +20,7 @@ router.get("/budget", async (req, res) => {
 
 router.get("/budget/category", async (req, res) => {
   try {
-    const data = await getBudgetOfCategory(req.session.userId, req.body);
+    const data = await getBudgetOfCategory(req.session.user_id, req.body);
     res.json({ data });
   } catch (err) {
     res.status(500).send({ error: err.message });
@@ -29,7 +29,7 @@ router.get("/budget/category", async (req, res) => {
 
 router.get("/categories", async (req, res) => {
   try {
-    const data = await getCategories(req.session.userId);
+    const data = await getCategories(req.session.user_id);
     res.json({ data });
   } catch (err) {
     res.status(500).send({ error: err.message });
@@ -38,7 +38,7 @@ router.get("/categories", async (req, res) => {
 
 router.get("/expenses", async (req, res) => {
   try {
-    const data = await getExpenses(req.session.userId);
+    const data = await getExpenses(req.session.user_id);
     res.json({ data });
   } catch (err) {
     res.status(500).send({ error: err.message });
@@ -47,7 +47,7 @@ router.get("/expenses", async (req, res) => {
 
 router.get("/expenses/category", async (req, res) => {
   try {
-    const data = await getExpensesOfCategory(req.session.userId, req.body);
+    const data = await getExpensesOfCategory(req.session.user_id, req.body);
     res.json({ data });
   } catch (err) {
     res.status(500).send({ error: err.message });
@@ -56,7 +56,7 @@ router.get("/expenses/category", async (req, res) => {
 
 router.get("/finances", async (req, res) => {
   try {
-    const data = await getFinances(req.session.userId);
+    const data = await getFinances(req.session.user_id);
     res.json({ data });
   } catch (err) {
     res.status(500).send({ error: err.message });

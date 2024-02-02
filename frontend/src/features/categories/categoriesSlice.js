@@ -3,7 +3,7 @@ import axios from "axios";
 axios.defaults.baseURL = "http://localhost:3001";
 
 const initialState = {
-  caegories: [],
+  categories: [],
   status: {
     categories: "idle",
     addCategory: "idle",
@@ -23,7 +23,9 @@ export const categoriesSlice = createSlice({
       })
       .addCase(getCategories.fulfilled, (state, action) => {
         state.status.categories = "succeeded";
-        state.categories = action.payload;
+        const array = [];
+        array.push(action.payload);
+        state.categories = array;
       })
       .addCase(getCategories.rejected, (state, action) => {
         state.status.categories = "failed";
@@ -80,7 +82,7 @@ export const getCategories = createAsyncThunk(
 export const addCategory = createAsyncThunk(
   "budgets/addCategory",
   async (category) => {
-    const result = await axios({
+    const response = await axios({
       url: "/insert/category",
       method: "POST",
       data: category,
@@ -119,6 +121,7 @@ export const deleteCategory = createAsyncThunk(
 );
 
 export const selectCategories = (state) => state.categories.categories;
+export const selectCategoriesStatus = (state) => state.categories.status.categories;
 // Action creators are generated for each case reducer function
 export const {} = categoriesSlice.actions;
 

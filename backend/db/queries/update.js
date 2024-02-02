@@ -4,12 +4,13 @@ const db = require("../connection");
 
 const updateBudget = async (data) => {
   const queryDef = {
-    text: `UPDATE budget SET category_id = $1, allocated_amount = $2, total_amount = $3, duration = $4 WHERE id = $5 RETURNING *;`,
+    text: `UPDATE budget SET category_id = $1, allocated_amount = $2, total_amount = $3, duration = $4, name = $6 WHERE id = $5 RETURNING *;`,
     values: [
       data.category_id,
       data.allocated_amount,
       data.total_amount,
       data.duration,
+      data.name,
       data.id,
     ],
   };

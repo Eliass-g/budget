@@ -1,4 +1,4 @@
-import { React, useState } from "react";
+import { React, useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
   getBudgets,
@@ -9,6 +9,11 @@ import {
   selectBudgetStatus,
   selectBudgets,
 } from "./budgetsSlice";
+import {
+  getCategories,
+  selectCategories,
+  selectCategoriesStatus,
+} from "../categories/categoriesSlice";
 import BudgetListItem from "./BudgetListItem";
 
 const BudgetList = () => {
@@ -17,21 +22,38 @@ const BudgetList = () => {
   const budgets = useSelector(selectBudgets);
   const budgetsStatus = useSelector(selectBudgetStatus);
 
+  const categories = useSelector(selectCategories);
+  const categoriesStatus = useSelector(selectCategoriesStatus);
+
   useEffect(() => {
     if (budgetsStatus === "idle") {
       dispatch(getBudgets());
     }
   }, [budgetsStatus, dispatch]);
+
+  useEffect(() => {
+    if (categoriesStatus === "idle") {
+      dispatch(getCategories());
+    }
+  }, [categoriesStatus, dispatch]);
+
   const budgetList = budgets.map((data) => {
     return (
-      <BudgetListItem
-        key={data.id}
-        id={data.id}
-        category_id={data.category_id}
-        allocated_amount={data.allocated_amount}
-        total_amount={data.total_amount}
-        duration={data.duration}
-      />
+      budgetsStatus === "succeeded" &&
+      categoriesStatus === "succeeded" && (
+        <BudgetListItem
+          key={data.id}
+          id={data.id}
+          name={data.name}
+          category_id={data.category_id}
+          category_name={
+            categories.find((x) => x.id === data.category_id).category
+          }
+          allocated_amount={data.allocated_amount}
+          total_amount={data.total_amount}
+          duration={data.duration}
+        />
+      )
     );
   });
   return <div>{budgetList}</div>;
