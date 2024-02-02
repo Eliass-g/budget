@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 axios.defaults.baseURL = "http://localhost:3001";
+axios.defaults.withCredentials = true;
 
 const initialState = {
   currentUser: null,
@@ -62,7 +63,7 @@ export const loginUser = createAsyncThunk(
         password,
       },
     });
-    return response.data;
+    return response.data.data;
   }
 );
 
@@ -92,7 +93,7 @@ export const logoutUser = createAsyncThunk("users/logoutUser", async () => {
   return response.data.data;
 });
 
-export const getCurrentUser = (state) => state.users.currentUser;
+export const selectCurrentUser = (state) => state.users.currentUser;
 // Action creators are generated for each case reducer function
 export const {} = usersSlice.actions;
 

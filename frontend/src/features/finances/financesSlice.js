@@ -98,7 +98,7 @@ export const updateFinance = createAsyncThunk(
   "budgets/updateFinance",
   async (params) => {
     const { source, amount, duration, fixed, id } = params;
-    const result = await axios({
+    const response = await axios({
       url: "/update/finance",
       method: "PUT",
       data: {

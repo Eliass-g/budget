@@ -56,10 +56,12 @@ export const budgetsSlice = createSlice({
       .addCase(updateBudget.fulfilled, (state, action) => {
         state.status.updateBudget = "succeeded";
         state.budgets.push(action.payload);
-        var index = state.budgets.findIndex((budget) => budget.id === action.payload.id);
+        var index = state.budgets.findIndex(
+          (budget) => budget.id === action.payload.id
+        );
         if (index !== -1) {
           state.budgets[index] = action.payload;
-        };
+        }
       })
       .addCase(updateBudget.rejected, (state, action) => {
         state.status.updateBudget = "failed";
@@ -102,11 +104,13 @@ export const getBudgetOfCategory = createAsyncThunk(
 export const addBudget = createAsyncThunk(
   "budgets/addBudget",
   async (params) => {
-    const { category_id, allocated_amount, total_amount, duration } = params;
+    const { name, category_id, allocated_amount, total_amount, duration } =
+      params;
     const response = await axios({
       url: "/insert/budget",
       method: "POST",
       data: {
+        name,
         category_id,
         allocated_amount,
         total_amount,

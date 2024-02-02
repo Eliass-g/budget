@@ -105,7 +105,7 @@ export const addExpense = createAsyncThunk(
   "budgets/addExpense",
   async (params) => {
     const { category_id, amount } = params;
-    const result = await axios({
+    const response = await axios({
       url: "/insert/expense",
       method: "POST",
       data: {

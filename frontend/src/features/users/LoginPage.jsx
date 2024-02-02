@@ -1,11 +1,11 @@
 import { React, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { loginUser, getCurrentUser } from "./usersSlice";
+import { loginUser, selectCurrentUser } from "./usersSlice";
 
 function LoginPage() {
   const dispatch = useDispatch();
 
-  const currentUser = useSelector(getCurrentUser);
+  const currentUser = useSelector(selectCurrentUser);
 
   const [inputs, setInputs] = useState({});
 

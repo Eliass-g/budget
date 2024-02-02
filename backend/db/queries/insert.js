@@ -4,9 +4,9 @@ const db = require('../connection');
 
 const addBudget = async (user_id, data) => {
   const queryDef = {
-    text: `INSERT INTO budget (user_id, category_id, allocated_amount, total_amount, duration)
-    VALUES ($1, $2, $3, $4, $5) RETURNING *;`, 
-    values: [user_id, data.category_id, data.allocated_amount, data.total_amount, data.duration],
+    text: `INSERT INTO budget (user_id, category_id, allocated_amount, total_amount, duration, name)
+    VALUES ($1, $2, $3, $4, $5, $6) RETURNING *;`, 
+    values: [user_id, data.category_id, data.allocated_amount, data.total_amount, data.duration, data.name],
     };
     const result = await db.query(queryDef);
     return result.rows[0];

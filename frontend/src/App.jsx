@@ -1,45 +1,32 @@
 import React from "react";
-import useApplicationData from "./hooks/useApplicationData.js";
 import LoginPage from "./features/users/LoginPage.jsx";
 import RegisterPage from "./features/users/RegisterPage.jsx";
-import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+import { Routes, Route, Link } from "react-router-dom";
+import BudgetList from "./features/budgets/BudgetList.js";
+import AddBudget from "./features/budgets/AddBudget.js";
 
 function App() {
-  const {
-    users,
-    registerUser,
-    loginUser,
-    logoutUser,
-    budgets,
-    budgetsOfCategory,
-    categories,
-    expenses,
-    expensesOfCategory,
-    finances,
-    getBudgetOfCategory,
-    getExpensesOfCategory,
-    addBudget,
-    addCategory,
-    addFinance,
-    addExpense,
-    updateBudget,
-    updateCategory,
-    updateFinance,
-    updateExpense,
-    deleteBudget,
-    deleteCategory,
-    deleteFinance,
-    deleteExpense,
-  } = useApplicationData();
-
   return (
-    <div className="App">
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<LoginPage />} />
-        </Routes>
-      </BrowserRouter>
-    </div>
+    <>
+      <nav>
+        <ul>
+          <li>
+            <Link to="/">Login</Link>
+          </li>
+          <li>
+            <Link to="/budgets">Budgets</Link>
+          </li>
+          <li>
+            <Link to="/addBudget">Add Budget</Link>
+          </li>
+        </ul>
+      </nav>
+      <Routes>
+        <Route path="/" element={<LoginPage />} />
+        <Route path="/budgets" element={<BudgetList />} />
+        <Route path="/addBudget" element={<AddBudget />} />
+      </Routes>
+    </>
   );
 }
 
