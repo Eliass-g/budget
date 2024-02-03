@@ -1,9 +1,11 @@
 import { React, useState } from "react";
 import { useDispatch } from "react-redux";
 import { addBudget } from "./budgetsSlice";
+import {useNavigate} from 'react-router-dom';
 
 const AddBudget = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate()
 
   const [inputs, setInputs] = useState({});
 
@@ -23,7 +25,7 @@ const AddBudget = () => {
         total_amount: inputs.total_amount,
         duration: inputs.duration,
       })
-    );
+    ).then(navigate('/budgets'));
   };
 
   return (
