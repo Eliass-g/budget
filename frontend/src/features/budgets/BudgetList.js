@@ -3,9 +3,6 @@ import { useSelector, useDispatch } from "react-redux";
 import {
   getBudgets,
   getBudgetOfCategory,
-  addBudget,
-  updateBudget,
-  deleteBudget,
   selectBudgetStatus,
   selectBudgets,
 } from "./budgetsSlice";

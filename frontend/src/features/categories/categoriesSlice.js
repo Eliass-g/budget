@@ -22,10 +22,8 @@ export const categoriesSlice = createSlice({
         state.status.categories = "loading";
       })
       .addCase(getCategories.fulfilled, (state, action) => {
+        state.categories = action.payload;
         state.status.categories = "succeeded";
-        const array = [];
-        array.push(action.payload);
-        state.categories = array;
       })
       .addCase(getCategories.rejected, (state, action) => {
         state.status.categories = "failed";
@@ -34,8 +32,8 @@ export const categoriesSlice = createSlice({
         state.status.addCategory = "loading";
       })
       .addCase(addCategory.fulfilled, (state, action) => {
-        state.status.addCategory = "succeeded";
         state.categories.push(action.payload);
+        state.status.addCategory = "succeeded";
       })
       .addCase(addCategory.rejected, (state, action) => {
         state.status.addCategory = "failed";
@@ -44,11 +42,13 @@ export const categoriesSlice = createSlice({
         state.status.updateCategory = "loading";
       })
       .addCase(updateCategory.fulfilled, (state, action) => {
-        state.status.updateCategory = "succeeded";
-        var index = state.categories.findIndex((category) => category.id === action.payload.id);
+        var index = state.categories.findIndex(
+          (category) => category.id === action.payload.id
+        );
         if (index !== -1) {
           state.categories[index] = action.payload;
-        };
+        }
+        state.status.updateCategory = "succeeded";
       })
       .addCase(updateCategory.rejected, (state, action) => {
         state.status.updateCategory = "failed";
@@ -57,10 +57,10 @@ export const categoriesSlice = createSlice({
         state.status.deleteCategory = "loading";
       })
       .addCase(deleteCategory.fulfilled, (state, action) => {
-        state.status.deleteCategory = "succeeded";
         state.categories = state.categories.filter(
           (category) => category.id != action.payload.id
         );
+        state.status.deleteCategory = "succeeded";
       })
       .addCase(deleteCategory.rejected, (state, action) => {
         state.status.deleteCategory = "failed";
@@ -94,8 +94,7 @@ export const addCategory = createAsyncThunk(
 export const updateCategory = createAsyncThunk(
   "budgets/updateCategory",
   async (params) => {
-    const { category, id } =
-      params;
+    const { category, id } = params;
     const response = await axios({
       url: "/update/category",
       method: "PUT",
@@ -114,14 +113,15 @@ export const deleteCategory = createAsyncThunk(
     const response = await axios({
       url: "/update/category",
       method: "DELETE",
-      data: id,
+      data: { id },
     });
     return response.data.data;
   }
 );
 
 export const selectCategories = (state) => state.categories.categories;
-export const selectCategoriesStatus = (state) => state.categories.status.categories;
+export const selectCategoriesStatus = (state) =>
+  state.categories.status.categories;
 // Action creators are generated for each case reducer function
 export const {} = categoriesSlice.actions;
 

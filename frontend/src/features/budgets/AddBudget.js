@@ -1,13 +1,15 @@
 import { React, useState } from "react";
 import { useDispatch } from "react-redux";
 import { addBudget } from "./budgetsSlice";
-import {useNavigate} from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
+import CategoryDropDown from "../categories/CategoryDropDown";
 
 const AddBudget = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const [inputs, setInputs] = useState({});
+  const [category_id, setCategoryId] = useState();
 
   const handleChange = (event) => {
     const name = event.target.name;
@@ -17,15 +19,16 @@ const AddBudget = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    console.log(category_id);
     dispatch(
       addBudget({
         name: inputs.name,
-        category_id: inputs.category_id,
+        category_id: category_id,
         allocated_amount: inputs.allocated_amount,
         total_amount: inputs.total_amount,
         duration: inputs.duration,
       })
-    ).then(navigate('/budgets'));
+    ).then(navigate("/budgets"));
   };
 
   return (
@@ -43,17 +46,12 @@ const AddBudget = () => {
         </label>
         <label>
           Category
-          <input
-            type="text"
-            name="category_id"
-            value={inputs.category_id || ""}
-            onChange={handleChange}
-          />
+          <CategoryDropDown setValues={setCategoryId} />
         </label>
         <label>
           Allocated Amount
           <input
-            type="text"
+            type="number"
             name="allocated_amount"
             value={inputs.allocated_amount || ""}
             onChange={handleChange}
@@ -62,7 +60,7 @@ const AddBudget = () => {
         <label>
           Total Amount
           <input
-            type="text"
+            type="number"
             name="total_amount"
             value={inputs.total_amount || ""}
             onChange={handleChange}
@@ -71,7 +69,7 @@ const AddBudget = () => {
         <label>
           Duration
           <input
-            type="text"
+            type="number"
             name="duration"
             value={inputs.duration || ""}
             onChange={handleChange}
