@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const {
   getBudget,
+  getExpensesOfBudget,
   getBudgetOfCategory,
   getCategories,
   getExpenses,
@@ -39,6 +40,16 @@ router.get("/categories", async (req, res) => {
 router.get("/expenses", async (req, res) => {
   try {
     const data = await getExpenses(req.session.user_id);
+    res.json({ data });
+  } catch (err) {
+    res.status(500).send({ error: err.message });
+  }
+});
+
+router.post("/expenses/budget", async (req, res) => {
+  try {
+    console.log(req.body);
+    const data = await getExpensesOfBudget(req.session.user_id, req.body);
     res.json({ data });
   } catch (err) {
     res.status(500).send({ error: err.message });

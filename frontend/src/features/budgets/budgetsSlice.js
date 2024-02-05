@@ -24,8 +24,8 @@ export const budgetsSlice = createSlice({
         state.status.budgets = "loading";
       })
       .addCase(getBudgets.fulfilled, (state, action) => {
-        state.status.budgets = "succeeded";
         state.budgets = action.payload;
+        state.status.budgets = "succeeded";
       })
       .addCase(getBudgets.rejected, (state, action) => {
         state.status.budgets = "failed";
@@ -34,8 +34,8 @@ export const budgetsSlice = createSlice({
         state.status.budgetsOfCategory = "loading";
       })
       .addCase(getBudgetOfCategory.fulfilled, (state, action) => {
-        state.status.budgetsOfCategory = "succeeded";
         state.budgetsOfCategory = action.payload;
+        state.status.budgetsOfCategory = "succeeded";
       })
       .addCase(getBudgetOfCategory.rejected, (state, action) => {
         state.status.budgetsOfCategory = "failed";
@@ -44,8 +44,8 @@ export const budgetsSlice = createSlice({
         state.status.addBudget = "loading";
       })
       .addCase(addBudget.fulfilled, (state, action) => {
-        state.status.addBudget = "succeeded";
         state.budgets.push(action.payload);
+        state.status.addBudget = "succeeded";
       })
       .addCase(addBudget.rejected, (state, action) => {
         state.status.addBudget = "failed";
@@ -54,11 +54,11 @@ export const budgetsSlice = createSlice({
         state.status.updateBudget = "loading";
       })
       .addCase(updateBudget.fulfilled, (state, action) => {
-        state.status.updateBudget = "succeeded";
         var index = state.budgets.findIndex((x) => x.id === action.payload.id);
         if (index == !-1) {
           state.budgets[index] = action.payload;
         }
+        state.status.updateBudget = "succeeded";
       })
       .addCase(updateBudget.rejected, (state, action) => {
         state.status.updateBudget = "failed";
@@ -67,10 +67,10 @@ export const budgetsSlice = createSlice({
         state.status.deleteBudget = "loading";
       })
       .addCase(deleteBudget.fulfilled, (state, action) => {
-        state.status.deleteBudget = "succeeded";
         state.budgets = state.budgets.filter(
           (budget) => budget.id != action.payload.id
         );
+        state.status.deleteBudget = "succeeded";
       })
       .addCase(deleteBudget.rejected, (state, action) => {
         state.status.deleteBudget = "failed";

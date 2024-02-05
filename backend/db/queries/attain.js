@@ -1,11 +1,11 @@
-const db = require('../connection');
+const db = require("../connection");
 
 //get all budgets
 
 const getBudget = async (user_id) => {
   const queryDef = {
-  text: `SELECT * FROM budget WHERE user_id = $1;`, 
-  values: [user_id],
+    text: `SELECT * FROM budget WHERE user_id = $1;`,
+    values: [user_id],
   };
   const data = await db.query(queryDef);
   return data.rows;
@@ -15,8 +15,8 @@ const getBudget = async (user_id) => {
 
 const getBudgetOfCategory = async (user_id, info) => {
   const queryDef = {
-  text: `SELECT * FROM budget WHERE user_id = $1 AND category_id = $2;`, 
-  values: [user_id, info.category_id],
+    text: `SELECT * FROM budget WHERE user_id = $1 AND category_id = $2;`,
+    values: [user_id, info.category_id],
   };
   const data = await db.query(queryDef);
   return data.rows[0];
@@ -26,30 +26,40 @@ const getBudgetOfCategory = async (user_id, info) => {
 
 const getCategories = async (user_id) => {
   const queryDef = {
-  text: `SELECT * FROM categories WHERE user_id = $1;`, 
-  values: [user_id],
+    text: `SELECT * FROM categories WHERE user_id = $1;`,
+    values: [user_id],
   };
   const data = await db.query(queryDef);
-  return data.rows[0];
+  return data.rows;
 };
 
 //get all expenses
 
 const getExpenses = async (user_id) => {
   const queryDef = {
-  text: `SELECT * FROM expenses WHERE user_id = $1;`, 
-  values: [user_id],
+    text: `SELECT * FROM expenses WHERE user_id = $1;`,
+    values: [user_id],
   };
   const data = await db.query(queryDef);
   return data.rows[0];
+};
+
+const getExpensesOfBudget = async (user_id, info) => {
+  console.log(user_id, info);
+  const queryDef = {
+    text: `SELECT * FROM expenses WHERE user_id = $1 AND budget_id = $2;`,
+    values: [user_id, info.budget_id],
+  };
+  const data = await db.query(queryDef);
+  return data.rows;
 };
 
 //get expenses for specific category
 
 const getExpensesOfCategory = async (user_id, info) => {
   const queryDef = {
-  text: `SELECT * FROM expenses WHERE user_id = $1 AND category_id = $2;`, 
-  values: [user_id, info.category_id],
+    text: `SELECT * FROM expenses WHERE user_id = $1 AND category_id = $2;`,
+    values: [user_id, info.category_id],
   };
   const data = await db.query(queryDef);
   return data.rows[0];
@@ -59,11 +69,19 @@ const getExpensesOfCategory = async (user_id, info) => {
 
 const getFinances = async (user_id) => {
   const queryDef = {
-  text: `SELECT * FROM finances WHERE user_id = $1;`, 
-  values: [user_id],
+    text: `SELECT * FROM finances WHERE user_id = $1;`,
+    values: [user_id],
   };
   const data = await db.query(queryDef);
   return data.rows[0];
 };
 
-module.exports = { getBudget, getBudgetOfCategory, getCategories, getExpenses, getExpensesOfCategory, getFinances };
+module.exports = {
+  getBudget,
+  getExpensesOfBudget,
+  getBudgetOfCategory,
+  getCategories,
+  getExpenses,
+  getExpensesOfCategory,
+  getFinances,
+};

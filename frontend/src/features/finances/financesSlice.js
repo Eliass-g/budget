@@ -22,8 +22,8 @@ export const financesSlice = createSlice({
         state.status.finances = "loading";
       })
       .addCase(getFinances.fulfilled, (state, action) => {
-        state.status.finances = "succeeded";
         state.finances = action.payload;
+        state.status.finances = "succeeded";
       })
       .addCase(getFinances.rejected, (state, action) => {
         state.status.finances = "failed";
@@ -32,8 +32,8 @@ export const financesSlice = createSlice({
         state.status.addFinance = "loading";
       })
       .addCase(addFinance.fulfilled, (state, action) => {
-        state.status.addFinance = "succeeded";
         state.finances.push(action.payload);
+        state.status.addFinance = "succeeded";
       })
       .addCase(addFinance.rejected, (state, action) => {
         state.status.addFinance = "failed";
@@ -42,13 +42,13 @@ export const financesSlice = createSlice({
         state.status.updateFinance = "loading";
       })
       .addCase(updateFinance.fulfilled, (state, action) => {
-        state.status.updateFinance = "succeeded";
         var index = state.finances.findIndex(
           (finance) => finance.id === action.payload.id
         );
         if (index !== -1) {
           state.finances[index] = action.payload;
         }
+        state.status.updateFinance = "succeeded";
       })
       .addCase(updateFinance.rejected, (state, action) => {
         state.status.updateFinance = "failed";
@@ -57,10 +57,10 @@ export const financesSlice = createSlice({
         state.status.deleteFinance = "loading";
       })
       .addCase(deleteFinance.fulfilled, (state, action) => {
-        state.status.deleteFinance = "succeeded";
         state.finances = state.finances.filter(
           (finance) => finance.id != action.payload.id
         );
+        state.status.deleteFinance = "succeeded";
       })
       .addCase(deleteFinance.rejected, (state, action) => {
         state.status.deleteFinance = "failed";

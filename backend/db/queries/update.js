@@ -59,7 +59,6 @@ const deleteBudget = async (data) => {
     values: [data.id],
   };
   const result = await db.query(queryDef);
-  console.log(result.rows[0]);
   return result.rows[0];
 };
 
