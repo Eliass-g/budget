@@ -57,6 +57,7 @@ export const expensesSlice = createSlice({
       })
       .addCase(addExpense.fulfilled, (state, action) => {
         state.expenses.push(action.payload);
+        state.expensesOfBudget.push(action.payload);
         state.status.addExpense = "succeeded";
       })
       .addCase(addExpense.rejected, (state, action) => {
@@ -82,7 +83,7 @@ export const expensesSlice = createSlice({
         state.status.deleteExpense = "loading";
       })
       .addCase(deleteExpense.fulfilled, (state, action) => {
-        state.expenses = state.expenses.filter(
+        state.expensesOfBudget = state.expensesOfBudget.filter(
           (expense) => expense.id != action.payload.id
         );
         state.status.deleteExpense = "succeeded";
@@ -128,12 +129,13 @@ export const getExpensesOfCategory = createAsyncThunk(
 export const addExpense = createAsyncThunk(
   "budgets/addExpense",
   async (params) => {
-    const { category_id, amount } = params;
+    const { budget_id, expense_name, amount } = params;
     const response = await axios({
       url: "/insert/expense",
       method: "POST",
       data: {
-        category_id,
+        budget_id,
+        expense_name,
         amount,
       },
     });
@@ -144,14 +146,15 @@ export const addExpense = createAsyncThunk(
 export const updateExpense = createAsyncThunk(
   "budgets/updateExpense",
   async (params) => {
-    const { category_id, amount, id } = params;
+    const { id, expense_name, amount, budget_id } = params;
     const response = await axios({
-      url: "/update/category",
+      url: "/update/expense",
       method: "PUT",
       data: {
-        category_id,
-        amount,
         id,
+        expense_name,
+        amount,
+        budget_id,
       },
     });
     return response.data.data;
@@ -164,7 +167,7 @@ export const deleteExpense = createAsyncThunk(
     const response = await axios({
       url: "/update/expense",
       method: "DELETE",
-      data: id,
+      data: { id },
     });
     return response.data.data;
   }

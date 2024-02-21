@@ -65,7 +65,7 @@ const BudgetListItem = ({
   };
 
   const openExpenseList = function () {
-    setExpensePage(true);
+    setExpensePage(!expensePage);
   };
 
   return (
@@ -150,7 +150,12 @@ const BudgetListItem = ({
           </div>
         </div>
       )}
-      {expensePage && <ExpenseList budget_id={id} />}
+      {expensePage && (
+        <>
+          <ExpenseList budget_id={id} />
+          <button onClick={openExpenseList}>Back</button>
+        </>
+      )}
     </>
   );
 };

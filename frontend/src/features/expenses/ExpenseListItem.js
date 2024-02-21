@@ -56,7 +56,7 @@ const ExpenseListItem = ({ id, expense_name, amount, budget_id }) => {
           <div>
             <span>Name:</span>
             {edit ? (
-              <span className="category-name">{expense_name}</span>
+              <span className="category-name">{inputs.expense_name}</span>
             ) : (
               <input
                 type="text"
@@ -69,7 +69,7 @@ const ExpenseListItem = ({ id, expense_name, amount, budget_id }) => {
           <div>
             <span>Amount:</span>
             {edit ? (
-              <span className="category-name">{amount}</span>
+              <span className="category-name">{inputs.amount}</span>
             ) : (
               <input
                 type="text"
@@ -81,16 +81,7 @@ const ExpenseListItem = ({ id, expense_name, amount, budget_id }) => {
           </div>
           <div>
             <span>Budget:</span>
-            {edit ? (
-              <span className="category-name">{budget_id}</span>
-            ) : (
-              <input
-                type="text"
-                name="budget_id"
-                value={inputs.budget_id}
-                onChange={handleChange}
-              />
-            )}
+            <span className="category-name">{budget_id}</span>
           </div>
           <div>
             {edit ? (

@@ -1,11 +1,9 @@
 import { React, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { loginUser, selectCurrentUser } from "./usersSlice";
+import { useDispatch } from "react-redux";
+import { addExpense } from "./expensesSlice";
 
-function LoginPage() {
+const AddExpense = ({ budget_id }) => {
   const dispatch = useDispatch();
-
-  const currentUser = useSelector(selectCurrentUser);
 
   const [inputs, setInputs] = useState({});
 
@@ -17,35 +15,42 @@ function LoginPage() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    dispatch(loginUser({ email: inputs.email, password: inputs.password }));
+    dispatch(
+      addExpense({
+        budget_id: budget_id,
+        expense_name: inputs.expense_name,
+        amount: inputs.amount,
+      })
+    );
   };
 
   return (
     <div>
+      <br></br>
       <form onSubmit={handleSubmit}>
         <label>
-          Email
+          Name
           <input
             type="text"
-            name="email"
-            value={inputs.email || ""}
+            name="expense_name"
+            value={inputs.expense_name || ""}
             onChange={handleChange}
           />
         </label>
         <label>
-          Password
+          Amount
           <input
-            type="text"
-            name="password"
-            value={inputs.password || ""}
+            type="number"
+            name="amount"
+            value={inputs.amount || ""}
             onChange={handleChange}
           />
         </label>
         <input type="submit" />
       </form>
-      <button>Sign Up</button>
+      <br></br>
     </div>
   );
-}
+};
 
-export default LoginPage;
+export default AddExpense;

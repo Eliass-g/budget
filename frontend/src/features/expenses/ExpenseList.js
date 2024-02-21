@@ -6,9 +6,16 @@ import {
   selectExpensesOfBudgetStatus,
 } from "./expensesSlice";
 import ExpenseListItem from "./ExpenseListItem";
+import AddExpense from "./AddExpense";
 
 const ExpenseList = ({ budget_id }) => {
   const dispatch = useDispatch();
+
+  const [add, setAdd] = useState(false);
+
+  const handleClick = function () {
+    setAdd(!add);
+  };
 
   const expenses = useSelector(selectExpensesOfBudget);
   const expenseStatus = useSelector(selectExpensesOfBudgetStatus);
@@ -19,23 +26,35 @@ const ExpenseList = ({ budget_id }) => {
     }
   }, [expenseStatus, dispatch]);
 
-  if (expenseStatus === "succeeded") {
-    console.log(expenses);
-  }
   const expenseList = expenses.map((data) => {
     return (
       expenseStatus === "succeeded" && (
         <ExpenseListItem
           key={data.id}
           id={data.id}
-          expense_name={data.expense_name}
+          expense_name={data.expense}
           amount={data.amount}
           budget_id={budget_id}
         />
       )
     );
   });
-  return <div>{expenseList}</div>;
+  return (
+    <>
+      {!add && (
+        <>
+          <div>{expenseList}</div>
+          <button onClick={handleClick}>Add</button>
+        </>
+      )}
+      {add && (
+        <>
+          <AddExpense budget_id={budget_id} />
+          <button onClick={handleClick}>Cancel</button>
+        </>
+      )}
+    </>
+  );
 };
 
 export default ExpenseList;

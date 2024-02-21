@@ -40,9 +40,9 @@ const addFinance = async (user_id, data) => {
 
 const addExpense = async (user_id, data) => {
   const queryDef = {
-    text: `INSERT INTO expenses (user_id, category_id, expense, amount)
+    text: `INSERT INTO expenses (user_id, budget_id, expense, amount)
     VALUES ($1, $2, $3, $4) RETURNING *;`,
-    values: [user_id, data.category_id, data.expense, data.amount],
+    values: [user_id, data.budget_id, data.expense_name, data.amount],
     };
     const result = await db.query(queryDef);
     return result.rows[0];

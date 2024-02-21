@@ -45,7 +45,6 @@ const getExpenses = async (user_id) => {
 };
 
 const getExpensesOfBudget = async (user_id, info) => {
-  console.log(user_id, info);
   const queryDef = {
     text: `SELECT * FROM expenses WHERE user_id = $1 AND budget_id = $2;`,
     values: [user_id, info.budget_id],

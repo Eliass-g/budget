@@ -19,7 +19,6 @@ const AddBudget = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log(category_id);
     dispatch(
       addBudget({
         name: inputs.name,

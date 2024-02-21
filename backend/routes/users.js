@@ -53,7 +53,6 @@ router.post("/login", async (req, res) => {
       return res.send({ error: "error" });
     }
     req.session.user_id = data.id;
-    console.log(req.session.user_id);
     res.json({ data });
   } catch (err) {
     res.status(500).json({ error: err.message });

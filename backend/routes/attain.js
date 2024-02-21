@@ -48,7 +48,6 @@ router.get("/expenses", async (req, res) => {
 
 router.post("/expenses/budget", async (req, res) => {
   try {
-    console.log(req.body);
     const data = await getExpensesOfBudget(req.session.user_id, req.body);
     res.json({ data });
   } catch (err) {
