@@ -74,7 +74,20 @@ export const budgetsSlice = createSlice({
       })
       .addCase(deleteBudget.rejected, (state, action) => {
         state.status.deleteBudget = "failed";
-      });
+      })
+      .addCase(updateBudgetAmount.pending, (state, action) => {
+        state.status.updateBudgetAmount = "loading";
+      })
+      .addCase(updateBudgetAmount.fulfilled, (state, action) => {
+        var index = state.budgets.findIndex((x) => x.id === action.payload.id);
+        if (index == !-1) {
+          state.budgets[index].allocated_amount = action.payload.allocated_amount;
+        }
+        state.status.updateBudgetAmount = "succeeded";
+      })
+      .addCase(updateBudgetAmount.rejected, (state, action) => {
+        state.status.updateBudgetAmount = "failed";
+      })
   },
 });
 
@@ -132,6 +145,23 @@ export const updateBudget = createAsyncThunk(
         allocated_amount,
         total_amount,
         duration,
+        id,
+      },
+    });
+    return response.data.data;
+  }
+);
+
+export const updateBudgetAmount = createAsyncThunk(
+  "budgets/updateAmountofBudget",
+  async (params) => {
+    const { allocated_amount, id } =
+      params;
+    const response = await axios({
+      url: "/update/budgetAmount",
+      method: "PUT",
+      data: {
+        allocated_amount,
         id,
       },
     });

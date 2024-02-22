@@ -1,5 +1,19 @@
 const db = require("../connection");
 
+//assign allocated amount ot budget
+
+/* const allocatedAmount = async (budget) => {
+  const queryDef = {
+    text: `UPDATE budget SET allocated_amount = $2, WHERE id = $6 RETURNING *;`,
+    values: [
+      id,
+    ],
+  };
+  const data = await db.query(queryDef);
+  return data.rows;
+}; */
+
+
 //get all budgets
 
 const getBudget = async (user_id) => {

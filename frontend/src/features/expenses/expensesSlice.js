@@ -1,5 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+import { updateBudgetAmount } from "../budgets/budgetsSlice";
+import { useDispatch } from "react-redux";
 axios.defaults.baseURL = "http://localhost:3001";
 
 const initialState = {
@@ -58,6 +60,16 @@ export const expensesSlice = createSlice({
       .addCase(addExpense.fulfilled, (state, action) => {
         state.expenses.push(action.payload);
         state.expensesOfBudget.push(action.payload);
+        const allocated_amount = state.expensesOfBudget.reduce(
+          (total, obj) => obj.allocated_amount + total,
+          0
+        );
+        dispatch(
+          updateBudgetAmount({
+            allocated_amount: allocated_amount,
+            id: action.payload.budget_id,
+          })
+        );
         state.status.addExpense = "succeeded";
       })
       .addCase(addExpense.rejected, (state, action) => {
@@ -67,13 +79,22 @@ export const expensesSlice = createSlice({
         state.status.updateExpense = "loading";
       })
       .addCase(updateExpense.fulfilled, (state, action) => {
-        state.expenses.push(action.payload);
-        var index = state.expenses.findIndex(
+        var index = state.expensesOfBudget.findIndex(
           (expense) => expense.id === action.payload.id
         );
         if (index !== -1) {
-          state.expenses[index] = action.payload;
+          state.expensesOfBudget[index] = action.payload;
         }
+        const allocated_amount = state.expensesOfBudget.reduce(
+          (total, obj) => obj.allocated_amount + total,
+          0
+        );
+        dispatch(
+          updateBudgetAmount({
+            allocated_amount: allocated_amount,
+            id: action.payload.budget_id,
+          })
+        );
         state.status.updateExpense = "succeeded";
       })
       .addCase(updateExpense.rejected, (state, action) => {
@@ -85,6 +106,16 @@ export const expensesSlice = createSlice({
       .addCase(deleteExpense.fulfilled, (state, action) => {
         state.expensesOfBudget = state.expensesOfBudget.filter(
           (expense) => expense.id != action.payload.id
+        );
+        const allocated_amount = state.expensesOfBudget.reduce(
+          (total, obj) => obj.allocated_amount + total,
+          0
+        );
+        dispatch(
+          updateBudgetAmount({
+            allocated_amount: allocated_amount,
+            id: action.payload.budget_id,
+          })
         );
         state.status.deleteExpense = "succeeded";
       })

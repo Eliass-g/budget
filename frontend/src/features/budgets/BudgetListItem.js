@@ -12,18 +12,18 @@ const BudgetListItem = ({
   id,
   name,
   category_name,
+  category_id,
   allocated_amount,
   total_amount,
   duration,
 }) => {
   const dispatch = useDispatch();
-  const [category_id, setCategoryId] = useState();
+  const [category_id_new, setCategoryId] = useState(category_id);
 
   const initialState = {
     id,
     name,
     category_name,
-    allocated_amount,
     total_amount,
     duration,
   };
@@ -43,8 +43,8 @@ const BudgetListItem = ({
       updateBudget({
         id: id,
         name: inputs.name,
-        category_id: category_id,
-        allocated_amount: inputs.allocated_amount,
+        category_id: category_id_new,
+        allocated_amount: allocated_amount,
         total_amount: inputs.total_amount,
         duration: inputs.duration,
       })
@@ -96,16 +96,7 @@ const BudgetListItem = ({
             </div>
             <div>
               <span>Allocated Amount:</span>
-              {edit ? (
                 <span className="allocated-amount">{allocated_amount}</span>
-              ) : (
-                <input
-                  type="number"
-                  name="allocated_amount"
-                  value={inputs.allocated_amount}
-                  onChange={handleChange}
-                />
-              )}
             </div>
             <div>
               <span>Total Amount:</span>

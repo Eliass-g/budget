@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const {
   updateBudget,
+  updateBudgetAmount,
   updateCategory,
   updateFinance,
   updateExpense,
@@ -10,6 +11,15 @@ const {
   deleteFinance,
   deleteExpense,
 } = require("../db/queries/update");
+
+router.put("/budgetAmount", async (req, res) => {
+  try {
+    const data = await updateBudgetAmount(req.body);
+    res.json({ data });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
 
 router.put("/budget", async (req, res) => {
   try {

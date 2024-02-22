@@ -2,6 +2,17 @@ const db = require("../connection");
 
 //update budget
 
+const updateBudgetAmount = async (data) => {
+  const queryDef = {
+    text: `UPDATE budget SET allocated_amount = $1 WHERE id = $2 RETURNING *;`,
+    values: [data.allocated_amount, data.id],
+  };
+  const result = await db.query(queryDef);
+  return result.rows[0];
+};
+
+//update budget
+
 const updateBudget = async (data) => {
   const queryDef = {
     text: `UPDATE budget SET category_id = $1, allocated_amount = $2, total_amount = $3, duration = $4, name = $5 WHERE id = $6 RETURNING *;`,
@@ -97,6 +108,7 @@ const deleteExpense = async (data) => {
 
 module.exports = {
   updateBudget,
+  updateBudgetAmount,
   updateCategory,
   updateFinance,
   updateExpense,
