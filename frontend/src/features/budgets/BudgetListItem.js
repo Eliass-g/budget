@@ -1,4 +1,4 @@
-import { React, useState } from "react";
+import { React, useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
   getBudgetOfCategory,
@@ -7,6 +7,7 @@ import {
 } from "./budgetsSlice";
 import CategoryDropDown from "../categories/CategoryDropDown";
 import ExpenseList from "../expenses/ExpenseList";
+import { selectAmount } from "../expenses/expensesSlice";
 
 const BudgetListItem = ({
   id,
@@ -18,6 +19,7 @@ const BudgetListItem = ({
   duration,
 }) => {
   const dispatch = useDispatch();
+  const allocated_amount_new = useSelector(selectAmount);
   const [category_id_new, setCategoryId] = useState(category_id);
 
   const initialState = {
@@ -27,6 +29,20 @@ const BudgetListItem = ({
     total_amount,
     duration,
   };
+
+  useEffect(() => {
+    
+    dispatch(
+      updateBudget({
+        id: id,
+        name: inputs.name,
+        category_id: category_id_new,
+        allocated_amount: allocated_amount_new,
+        total_amount: inputs.total_amount,
+        duration: inputs.duration,
+      })
+    );
+  }, [allocated_amount_new]);
 
   const [inputs, setInputs] = useState(initialState);
   const [expensePage, setExpensePage] = useState(false);

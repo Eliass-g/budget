@@ -1,13 +1,13 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { updateBudgetAmount } from "../budgets/budgetsSlice";
-import { useDispatch } from "react-redux";
 axios.defaults.baseURL = "http://localhost:3001";
 
 const initialState = {
   expenses: [],
   expensesOfBudget: [],
   expensesOfCategory: [],
+  allocated_amount: 0,
   status: {
     expenses: "idle",
     expensesOfBudget: "idle",
@@ -60,16 +60,14 @@ export const expensesSlice = createSlice({
       .addCase(addExpense.fulfilled, (state, action) => {
         state.expenses.push(action.payload);
         state.expensesOfBudget.push(action.payload);
-        const allocated_amount = state.expensesOfBudget.reduce(
-          (total, obj) => obj.allocated_amount + total,
-          0
-        );
-        dispatch(
-          updateBudgetAmount({
-            allocated_amount: allocated_amount,
-            id: action.payload.budget_id,
-          })
-        );
+        state.allocated_amount = state.expensesOfBudget.reduce(function (
+          acc,
+          obj
+        ) {
+          return acc + obj.amount;
+        },
+        0);
+        console.log(state.allocated_amount);
         state.status.addExpense = "succeeded";
       })
       .addCase(addExpense.rejected, (state, action) => {
@@ -85,16 +83,13 @@ export const expensesSlice = createSlice({
         if (index !== -1) {
           state.expensesOfBudget[index] = action.payload;
         }
-        const allocated_amount = state.expensesOfBudget.reduce(
-          (total, obj) => obj.allocated_amount + total,
-          0
-        );
-        dispatch(
-          updateBudgetAmount({
-            allocated_amount: allocated_amount,
-            id: action.payload.budget_id,
-          })
-        );
+        state.allocated_amount = state.expensesOfBudget.reduce(function (
+          acc,
+          obj
+        ) {
+          return acc + obj.amount;
+        },
+        0);
         state.status.updateExpense = "succeeded";
       })
       .addCase(updateExpense.rejected, (state, action) => {
@@ -107,16 +102,13 @@ export const expensesSlice = createSlice({
         state.expensesOfBudget = state.expensesOfBudget.filter(
           (expense) => expense.id != action.payload.id
         );
-        const allocated_amount = state.expensesOfBudget.reduce(
-          (total, obj) => obj.allocated_amount + total,
-          0
-        );
-        dispatch(
-          updateBudgetAmount({
-            allocated_amount: allocated_amount,
-            id: action.payload.budget_id,
-          })
-        );
+        state.allocated_amount = state.expensesOfBudget.reduce(function (
+          acc,
+          obj
+        ) {
+          return acc + obj.amount;
+        },
+        0);
         state.status.deleteExpense = "succeeded";
       })
       .addCase(deleteExpense.rejected, (state, action) => {
@@ -205,6 +197,7 @@ export const deleteExpense = createAsyncThunk(
 );
 
 export const selectExpenses = (state) => state.expenses.expenses;
+export const selectAmount = (state) => state.expenses.allocated_amount;
 export const selectExpensesOfBudget = (state) =>
   state.expenses.expensesOfBudget;
 export const selectExpensesOfCategory = (state) =>
