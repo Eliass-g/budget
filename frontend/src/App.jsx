@@ -6,6 +6,7 @@ import BudgetList from "./features/budgets/BudgetList.js";
 import AddBudget from "./features/budgets/AddBudget.js";
 import CategoryList from "./features/categories/CategoryList.js";
 import AddCategory from "./features/categories/AddCategory.js";
+import Index from "./pages/Index.js";
 
 function App() {
   return (
@@ -14,6 +15,12 @@ function App() {
         <ul>
           <li>
             <Link to="/">Login</Link>
+          </li>
+          <li>
+            <Link to="/register">Register</Link>
+          </li>
+          <li>
+            <Link to="/index">Index</Link>
           </li>
           <li>
             <Link to="/budgets">Budgets</Link>
@@ -31,6 +38,8 @@ function App() {
       </nav>
       <Routes>
         <Route path="/" element={<LoginPage />} />
+        <Route path="/register" element={<RegisterPage />} />
+        <Route path="/index" element={<Index />} />
         <Route path="/budgets" element={<BudgetList />} />
         <Route path="/addBudget" element={<AddBudget />} />
         <Route path="/categories" element={<CategoryList />} />

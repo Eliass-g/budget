@@ -1,32 +1,19 @@
 import { React } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { loginUser, selectCurrentUser } from "./usersSlice";
-import { Helmet } from "react-helmet";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import {
-  Alert,
-  Box,
-  Button,
-  FormHelperText,
-  Link,
-  Stack,
-  Tab,
-  Tabs,
-  TextField,
-  Typography,
-} from "@mui/material";
-import { useNavigate } from "react-router-dom";
+import { Box, Button, Link, Stack, TextField, Typography } from "@mui/material";
+import { Helmet } from "react-helmet";
+import { useDispatch } from "react-redux";
+import { registerUser } from "./usersSlice";
 
 const Page = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
-
-  const currentUser = useSelector(selectCurrentUser);
 
   const formik = useFormik({
     initialValues: {
       email: "",
+      first_name: "",
+      last_name: "",
       password: "",
       submit: null,
     },
@@ -35,13 +22,21 @@ const Page = () => {
         .email("Must be a valid email")
         .max(255)
         .required("Email is required"),
+      first_name: Yup.string().max(255).required("First name is required"),
+      last_name: Yup.string().max(255).required("Last name is required"),
       password: Yup.string().max(255).required("Password is required"),
     }),
     onSubmit: async (values, helpers) => {
       try {
         dispatch(
-          loginUser({ email: values.email, password: values.password })
-        ).then(navigate("/budgets"));
+          registerUser({
+            first_name: values.first_name,
+            last_name: values.last_name,
+            email: values.email,
+            password: values.password,
+          })
+        );
+        //add routing
       } catch (err) {
         helpers.setStatus({ success: false });
         helpers.setErrors({ submit: err.message });
@@ -53,11 +48,10 @@ const Page = () => {
   return (
     <>
       <Helmet>
-        <title>Login | Finance App</title>
+        <title>Register | Finance App</title>
       </Helmet>
       <Box
         sx={{
-          backgroundColor: "background.paper",
           flex: "1 1 auto",
           alignItems: "center",
           display: "flex",
@@ -74,16 +68,36 @@ const Page = () => {
         >
           <div>
             <Stack spacing={1} sx={{ mb: 3 }}>
-              <Typography variant="h4">Login</Typography>
+              <Typography variant="h4">Register</Typography>
               <Typography color="text.secondary" variant="body2">
-                Don&apos;t have an account? &nbsp;
-                <Link href="/register" underline="hover" variant="subtitle2">
-                  Register
+                Already have an account? &nbsp;
+                <Link href="/login" underline="hover" variant="subtitle2">
+                  Log in
                 </Link>
               </Typography>
             </Stack>
             <form noValidate onSubmit={formik.handleSubmit}>
               <Stack spacing={3}>
+                <TextField
+                  error={!!(formik.touched.first_name && formik.errors.first_name)}
+                  fullWidth
+                  helperText={formik.touched.first_name && formik.errors.first_name}
+                  label="First Name"
+                  name="first_name"
+                  onBlur={formik.handleBlur}
+                  onChange={formik.handleChange}
+                  value={formik.values.first_name}
+                />
+                <TextField
+                  error={!!(formik.touched.last_name && formik.errors.last_name)}
+                  fullWidth
+                  helperText={formik.touched.last_name && formik.errors.last_name}
+                  label="Last Name"
+                  name="last_name"
+                  onBlur={formik.handleBlur}
+                  onChange={formik.handleChange}
+                  value={formik.values.last_name}
+                />
                 <TextField
                   error={!!(formik.touched.email && formik.errors.email)}
                   fullWidth
