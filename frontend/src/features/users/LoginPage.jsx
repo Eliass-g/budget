@@ -1,7 +1,7 @@
 import { React } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { loginUser, selectCurrentUser } from "./usersSlice";
-import { Helmet } from "react-helmet";
+import { Helmet, HelmetProvider } from "react-helmet-async";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import {
@@ -52,9 +52,11 @@ const Page = () => {
 
   return (
     <>
-      <Helmet>
-        <title>Login | Finance App</title>
-      </Helmet>
+      <HelmetProvider>
+        <Helmet>
+          <title>Login | Finance App</title>
+        </Helmet>
+      </HelmetProvider>
       <Box
         sx={{
           backgroundColor: "background.paper",

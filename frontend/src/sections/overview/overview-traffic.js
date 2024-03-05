@@ -12,7 +12,7 @@ import {
   Typography,
   useTheme
 } from '@mui/material';
-import { Chart } from '../../components/chart';
+import Chart from "react-apexcharts";
 
 const useChartOptions = (labels) => {
   const theme = useTheme();

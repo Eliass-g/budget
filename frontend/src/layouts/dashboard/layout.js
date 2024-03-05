@@ -24,6 +24,7 @@ const LayoutContainer = styled("div")({
 
 export const Layout = (props) => {
   const { children } = props;
+  console.log('test');
   const location = useLocation();
   const [openNav, setOpenNav] = useState(false);
 

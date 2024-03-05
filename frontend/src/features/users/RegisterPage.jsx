@@ -2,7 +2,7 @@ import { React } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { Box, Button, Link, Stack, TextField, Typography } from "@mui/material";
-import { Helmet } from "react-helmet";
+import { Helmet, HelmetProvider } from "react-helmet-async";
 import { useDispatch } from "react-redux";
 import { registerUser } from "./usersSlice";
 import { useNavigate } from "react-router-dom";
@@ -48,9 +48,11 @@ const Page = () => {
 
   return (
     <>
-      <Helmet>
-        <title>Register | Finance App</title>
-      </Helmet>
+      <HelmetProvider>
+        <Helmet>
+          <title>Register | Finance App</title>
+        </Helmet>
+      </HelmetProvider>
       <Box
         sx={{
           flex: "1 1 auto",

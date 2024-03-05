@@ -1,4 +1,4 @@
-import { styled } from '@mui/material/styles';
-import ApexChart from 'react-apexcharts';
+/* import { styled } from '@mui/material/styles';
+import Chart from 'react-apexcharts'
 
-export const Chart = styled(ApexChart)``;
+export const Chart = styled(Chart)``; */
