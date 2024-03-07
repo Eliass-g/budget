@@ -20,5 +20,3 @@ Read `backend/readme` for further setup details.
 cd backend
 npm start
 ```
-!["Finance Homepage]()
-!["Finance Budget]()
