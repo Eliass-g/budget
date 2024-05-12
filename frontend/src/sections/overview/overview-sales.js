@@ -47,7 +47,7 @@ const useChartOptions = () => {
       }
     },
     legend: {
-      show: false
+      show: true
     },
     plotOptions: {
       bar: {
@@ -124,7 +124,7 @@ export const OverviewSales = (props) => {
             Sync
           </Button>
         )}
-        title="Sales"
+        title="Budget"
       />
       <CardContent>
         <Chart

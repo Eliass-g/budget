@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
-import ComputerDesktopIcon from '@heroicons/react/24/solid/ComputerDesktopIcon';
-import DeviceTabletIcon from '@heroicons/react/24/solid/DeviceTabletIcon';
-import PhoneIcon from '@heroicons/react/24/solid/PhoneIcon';
+import ComputerDesktopIcon from '@heroicons/react/24/solid/HomeIcon';
+import DeviceTabletIcon from '@heroicons/react/24/solid/ShoppingCartIcon';
+import PhoneIcon from '@heroicons/react/24/solid/ShoppingBagIcon';
 import {
   Box,
   Card,
@@ -63,17 +63,17 @@ const useChartOptions = (labels) => {
 };
 
 const iconMap = {
-  Desktop: (
+  Rent: (
     <SvgIcon>
       <ComputerDesktopIcon />
     </SvgIcon>
   ),
-  Tablet: (
+  Food: (
     <SvgIcon>
       <DeviceTabletIcon />
     </SvgIcon>
   ),
-  Phone: (
+  Micellanious: (
     <SvgIcon>
       <PhoneIcon />
     </SvgIcon>
@@ -86,7 +86,7 @@ export const OverviewTraffic = (props) => {
 
   return (
     <Card sx={sx}>
-      <CardHeader title="Traffic Source" />
+      <CardHeader title="Spending Breakdown" />
       <CardContent>
         <Chart
           height={300}

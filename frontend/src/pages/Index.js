@@ -48,17 +48,17 @@ const Page = () => (
               <OverviewTasksProgress sx={{ height: "100%" }} value={75.5} />
             </Grid>
             <Grid xs={12} sm={6} lg={3}>
-              <OverviewTotalProfit sx={{ height: "100%" }} value="$15k" />
+              <OverviewTotalProfit sx={{ height: "100%" }} value="$22.4k" />
             </Grid>
             <Grid xs={12} lg={8}>
               <OverviewSales
                 chartSeries={[
                   {
-                    name: "This year",
+                    name: "Allocated Amount",
                     data: [18, 16, 5, 8, 3, 14, 14, 16, 17, 19, 18, 20],
                   },
                   {
-                    name: "Last year",
+                    name: "Spent",
                     data: [12, 11, 4, 6, 2, 9, 9, 10, 11, 12, 13, 13],
                   },
                 ]}
@@ -68,7 +68,7 @@ const Page = () => (
             <Grid xs={12} md={6} lg={4}>
               <OverviewTraffic
                 chartSeries={[63, 15, 22]}
-                labels={["Desktop", "Tablet", "Phone"]}
+                labels={["Rent", "Food", "Micellanious"]}
                 sx={{ height: "100%" }}
               />
             </Grid>
@@ -81,9 +81,9 @@ const Page = () => (
                     ref: "DEV1049",
                     amount: 30.5,
                     customer: {
-                      name: "Ekaterina Tankova",
+                      name: "Uber Eats",
                     },
-                    createdAt: 1555016400000,
+                    createdAt: "04/01/2024",
                     status: "pending",
                   },
                   {
@@ -91,9 +91,9 @@ const Page = () => (
                     ref: "DEV1048",
                     amount: 25.1,
                     customer: {
-                      name: "Cao Yu",
+                      name: "Gas",
                     },
-                    createdAt: 1555016400000,
+                    createdAt: "04/01/2024",
                     status: "delivered",
                   },
                   {
@@ -101,9 +101,9 @@ const Page = () => (
                     ref: "DEV1047",
                     amount: 10.99,
                     customer: {
-                      name: "Alexa Richardson",
+                      name: "Amazon Purcahse - Socks",
                     },
-                    createdAt: 1554930000000,
+                    createdAt: "03/01/2024",
                     status: "refunded",
                   },
                   {
@@ -111,9 +111,9 @@ const Page = () => (
                     ref: "DEV1046",
                     amount: 96.43,
                     customer: {
-                      name: "Anje Keizer",
+                      name: "Groceries",
                     },
-                    createdAt: 1554757200000,
+                    createdAt: "03/01/2024",
                     status: "pending",
                   },
                   {
@@ -121,9 +121,9 @@ const Page = () => (
                     ref: "DEV1045",
                     amount: 32.54,
                     customer: {
-                      name: "Clarke Gillebert",
+                      name: "Phone Bill",
                     },
-                    createdAt: 1554670800000,
+                    createdAt: "03/01/2024",
                     status: "delivered",
                   },
                   {
@@ -131,9 +131,9 @@ const Page = () => (
                     ref: "DEV1044",
                     amount: 16.76,
                     customer: {
-                      name: "Adam Denisov",
+                      name: "Gloves",
                     },
-                    createdAt: 1554670800000,
+                    createdAt: "03/01/2024",
                     status: "delivered",
                   },
                 ]}

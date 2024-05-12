@@ -41,7 +41,7 @@ const Page = () => {
       try {
         dispatch(
           loginUser({ email: values.email, password: values.password })
-        ).then(navigate("/budgets"));
+        ).then(navigate("/index"));
       } catch (err) {
         helpers.setStatus({ success: false });
         helpers.setErrors({ submit: err.message });

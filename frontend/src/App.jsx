@@ -17,8 +17,33 @@ function App() {
   return (
     <>
       <ThemeProvider theme={theme}>
+        {/* <nav>
+          <ul>
+            <li>
+              <Link to="/">Login</Link>
+            </li>
+            <li>
+              <Link to="/register">Register</Link>
+            </li>
+            <li>
+              <Link to="/index">Index</Link>
+            </li>
+            <li>
+              <Link to="/budgets">Budgets</Link>
+            </li>
+            <li>
+              <Link to="/addBudget">Add Budget</Link>
+            </li>
+            <li>
+              <Link to="/categories">Categories</Link>
+            </li>
+            <li>
+              <Link to="/addCategory">Add Category</Link>
+            </li>
+          </ul>
+        </nav> */}
         <Routes>
-          <Route path="/" element={<LoginPage />} />
+          <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/index" element={<Index />} />
           <Route path="/budgets" element={<BudgetList />} />
